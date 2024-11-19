@@ -1,0 +1,67 @@
+@page {
+    size: A5;
+}
+
+/****************************************************************************************************
+ * 索引
+ * 
+ * 長いドットを改行させて消す。
+ * 参考：https://sqkhor.medium.com/css-dot-leaders-in-table-of-content-db26614665df
+ * 
+ * Vivliostyleのleader関数ではleader関数が含まれるcontentだけで幅を埋めるような挙動になり、
+ * 複数のページ番号を含めるのが難しい。
+ * 
+ * ```
+ * .entry-term::after {
+ *     content: leader(dotted) ' '; <--これができない
+ * }
+ * .entry-pages-page::before {
+ *     content: target-counter(attr(href url), page);
+ * }
+ * 
+ * <li class="entry">
+ *   <span class="entry-term">Term</span>
+ *   <span class="entry-pages">
+ *     <a href="#aaa" class="entry-pages-page"></a><span class="entry-pages-separator"></span>
+ *     <a href="#bbb"class="entry-pages-page"></a>
+ *   </span>
+ * </li>
+ * ```
+ */
+/* li要素のdisplayをflexにするとマーカーが消える */
+.index-entry-inner {
+    display: flex;
+}
+
+.index-entry-term {
+    white-space: nowrap;
+}
+
+.index-entry-dots {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+
+    height: 1em;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+
+.index-entry-dots::after {
+    content: '............................................................................................................................................................................................................................................';
+}
+
+.index-entry-pages {
+    white-space: nowrap;
+}
+
+.index-entry-pages-page::before {
+    content: target-counter(attr(href url), page);
+}
+
+.index-entry-pages-separator::after {
+    content: ", ";
+}
+
+/*
+ * /索引
+ ****************************************************************************************************/
